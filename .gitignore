@@ -1,0 +1,38 @@
+# Challenge brief and reference material (local only)
+10 Academy Cohort A - Weekly Challenge_ Week 3 & 4.md
+/Sample
+
+# Raw data — keep local; load into DB via ETL scripts
+/Data
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Node / frontend (added as we build the add-on)
+node_modules/
+dist/
+build/
+.yarn/
+
+# OS & IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Docker
+*.log
