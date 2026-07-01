@@ -10,27 +10,14 @@ Run from repo root:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pandas as pd
 
-# Map Data/ folder names → database report_type slugs
-REPORT_SLUGS: dict[str, str] = {
-    "Viewership by Date": "viewership_daily",
-    "Device type": "device_type",
-    "Geography": "geography",
-    "Cities": "cities",
-    "Traffic source": "traffic_source",
-    "Operating system": "operating_system",
-    "Content type": "content_type",
-    "Subscription status": "subscription_status",
-    "Subscription source": "subscription_source",
-    "New and returning viewers": "new_returning_viewers",
-    "Sharing service": "sharing_service",
-    "Subtitles and CC": "subtitles_cc",
-    "Viewer age": "viewer_age",
-    "Viewer gender": "viewer_gender",
-}
+from youtube_config import REPORT_SLUGS
 
 
 def profile_csv(path: Path) -> dict:

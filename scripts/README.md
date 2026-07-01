@@ -12,6 +12,7 @@ make profile-data
 | Script | Purpose |
 |--------|---------|
 | `profile_data.py` | Profile raw CSVs → `docs/architecture/data-profile.txt` |
-| `load_youtube_data.py` | *(Task 2b)* Ingest CSVs into PostgreSQL |
+| `load_youtube_data.py` | Ingest CSVs into PostgreSQL (`make db-load`) |
+| `youtube_config.py` | Shared folder→report_type mappings and parsers |
 
 Dependencies: `scripts/requirements.txt` (installed via root `requirements.txt`).
