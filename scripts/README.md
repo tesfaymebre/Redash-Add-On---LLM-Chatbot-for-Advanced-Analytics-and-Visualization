@@ -2,7 +2,16 @@
 
 ETL and automation utilities for loading `Data/` CSV exports into the analytics database.
 
-Planned scripts (Task 2):
+Use the **root** `.venv` (not a separate env here):
 
-- `load_youtube_data.py` — ingest dimension & time-series tables
-- `validate_schema.py` — assert row counts and column types after load
+```bash
+make install
+make profile-data
+```
+
+| Script | Purpose |
+|--------|---------|
+| `profile_data.py` | Profile raw CSVs → `docs/architecture/data-profile.txt` |
+| `load_youtube_data.py` | *(Task 2b)* Ingest CSVs into PostgreSQL |
+
+Dependencies: `scripts/requirements.txt` (installed via root `requirements.txt`).

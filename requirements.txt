@@ -1,0 +1,8 @@
+# Root environment — install with: make install
+# Creates one .venv for backend + scripts (recommended)
+
+-e ./backend[dev]
+-r scripts/requirements.txt
+
+# ETL / database (Task 2b+)
+psycopg2-binary>=2.9

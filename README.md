@@ -23,14 +23,25 @@ docs/             # research notes, architecture decisions
 Data/             # raw YouTube CSV exports (local only, not committed)
 ```
 
-## Quick start (backend)
+## Quick start
+
+One **root-level** `.venv` covers the backend and ETL scripts (no per-folder venvs).
 
 ```bash
-cd backend
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-pytest
-hypercorn redash_chatbot.app:app --reload --bind 0.0.0.0:8000
+make help          # list commands
+make dev           # .venv + pip install + Postgres
+make db-init       # apply youtube schema
+make test          # backend unit tests
+make run           # Quart API on :8000
+```
+
+Manual setup:
+
+```bash
+make install
+source .venv/bin/activate
+make db-up && make db-init
+make run
 ```
 
 Health check: `GET http://localhost:8000/health`
