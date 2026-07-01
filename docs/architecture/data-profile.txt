@@ -1,0 +1,219 @@
+======================================================================
+YouTube Data/ Profile — Task 2a
+Source: /Users/tesfamariamasfaw/Documents/tes/ML projects/Redash-Add-On---LLM-Chatbot-for-Advanced-Analytics-and-Visualization/Data
+======================================================================
+
+## Cities  →  report_type: `cities`
+
+### Chart data.csv
+- Rows: 6395
+- Columns: ['Date', 'Cities', 'City name', 'Views']
+
+### Table data.csv
+- Rows: 9
+- Columns: ['Cities', 'City name', 'Geography', 'Geography.1', 'Views', 'Watch time (hours)', 'Average view duration']
+- Nulls: {'City name': 1, 'Geography': 1, 'Geography.1': 1}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Content type  →  report_type: `content_type`
+
+### Chart data.csv
+- Rows: 2558
+- Columns: ['Date', 'Content type', 'Views']
+
+### Table data.csv
+- Rows: 3
+- Columns: ['Content type', 'Views', 'Watch time (hours)', 'Average view duration']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Device type  →  report_type: `device_type`
+
+### Chart data.csv
+- Rows: 5116
+- Columns: ['Date', 'Device type', 'Views']
+
+### Table data.csv
+- Rows: 5
+- Columns: ['Device type', 'Views', 'Watch time (hours)', 'Average view duration']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Geography  →  report_type: `geography`
+
+### Chart data.csv
+- Rows: 37091
+- Columns: ['Date', 'Geography', 'Views']
+- Nulls: {'Geography': 1279}
+
+### Table data.csv
+- Rows: 30
+- Columns: ['Geography', 'Views', 'Watch time (hours)', 'Average view duration']
+- Nulls: {'Geography': 1}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## New and returning viewers  →  report_type: `new_returning_viewers`
+
+### Chart data.csv
+- Rows: 3837
+- Columns: ['Date', 'New and returning viewers', 'Views']
+
+### Table data.csv
+- Rows: 4
+- Columns: ['New and returning viewers', 'Views', 'Watch time (hours)', 'Average view duration']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Operating system  →  report_type: `operating_system`
+
+### Chart data.csv
+- Rows: 20464
+- Columns: ['Date', 'Operating system', 'Views']
+
+### Table data.csv
+- Rows: 17
+- Columns: ['Operating system', 'Views', 'Watch time (hours)', 'Average view duration']
+- Nulls: {'Average view duration': 1}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Sharing service  →  report_type: `sharing_service`
+
+### Chart data.csv
+- Rows: 11511
+- Columns: ['Date', 'Sharing service', 'Shares']
+
+### Table data.csv
+- Rows: 10
+- Columns: ['Sharing service', 'Shares']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Shares']
+
+
+## Subscription source  →  report_type: `subscription_source`
+
+### Chart data.csv
+- Rows: 10232
+- Columns: ['Date', 'Subscription source', 'Subscribers']
+
+### Table data.csv
+- Rows: 9
+- Columns: ['Subscription source', 'Subscribers', 'Subscribers gained', 'Subscribers lost']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Subscribers']
+
+
+## Subscription status  →  report_type: `subscription_status`
+
+### Chart data.csv
+- Rows: 2558
+- Columns: ['Date', 'Subscription status', 'Views']
+
+### Table data.csv
+- Rows: 3
+- Columns: ['Subscription status', 'Views', 'Watch time (hours)', 'Average view duration']
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Subtitles and CC  →  report_type: `subtitles_cc`
+
+### Chart data.csv
+- Rows: 10232
+- Columns: ['Date', 'Subtitles and CC', 'Views']
+- Nulls: {'Subtitles and CC': 1279}
+
+### Table data.csv
+- Rows: 9
+- Columns: ['Subtitles and CC', 'Views', 'Watch time (hours)', 'Average view duration']
+- Nulls: {'Subtitles and CC': 1, 'Average view duration': 1}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Traffic source  →  report_type: `traffic_source`
+
+### Chart data.csv
+- Rows: 11511
+- Columns: ['Date', 'Traffic source', 'Views']
+
+### Table data.csv
+- Rows: 11
+- Columns: ['Traffic source', 'Views', 'Watch time (hours)', 'Average view duration', 'Impressions', 'Impressions click-through rate (%)']
+- Nulls: {'Views': 1, 'Watch time (hours)': 1, 'Average view duration': 1, 'Impressions': 4, 'Impressions click-through rate (%)': 4}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+## Viewer age  →  report_type: `viewer_age`
+
+### Table data.csv
+- Rows: 4
+- Columns: ['Viewer age', 'Views (%)', 'Average view duration', 'Average percentage viewed (%)', 'Watch time (hours) (%)']
+
+
+## Viewer gender  →  report_type: `viewer_gender`
+
+### Table data.csv
+- Rows: 2
+- Columns: ['Viewer gender', 'Views (%)', 'Average view duration', 'Average percentage viewed (%)', 'Watch time (hours) (%)']
+
+
+## Viewership by Date  →  report_type: `viewership_daily`
+
+### Table data.csv
+- Rows: 502
+- Columns: ['Date', 'Views', 'Watch time (hours)', 'Average view duration']
+- Nulls: {'Views': 1, 'Watch time (hours)': 1, 'Average view duration': 8}
+- Note: row 0 is a **Total** rollup (exclude on ETL load)
+
+### Totals.csv
+- Rows: 1279
+- Columns: ['Date', 'Views']
+
+
+======================================================================
+Schema DDL: infra/sql/001_init_schema.sql
+Design doc: docs/architecture/database-schema.md
+======================================================================
