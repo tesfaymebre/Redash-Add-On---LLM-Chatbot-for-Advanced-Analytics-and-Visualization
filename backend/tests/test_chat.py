@@ -42,6 +42,30 @@ async def test_chat_returns_stub_answer():
 
 
 @pytest.mark.anyio
+async def test_chat_dashboard_widget_context():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post(
+            "/api/chat",
+            json={
+                "question": "What does this chart show?",
+                "context": {
+                    "type": "dashboard_widget",
+                    "query_name": "Top Countries",
+                    "visualization_name": "Bar Chart",
+                    "result_preview": {"total_rows": 10, "columns": ["country"], "rows": []},
+                },
+            },
+        )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["route"] == "stub_dashboard"
+    assert "Top Countries" in body["answer"]
+    assert "10 result row" in body["answer"]
+
+
+@pytest.mark.anyio
 async def test_chat_cors_headers():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:

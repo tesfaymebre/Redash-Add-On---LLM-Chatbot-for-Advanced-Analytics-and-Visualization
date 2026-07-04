@@ -1,0 +1,65 @@
+--- a/client/app/components/dashboards/dashboard-widget/VisualizationWidget.jsx
++++ b/client/app/components/dashboards/dashboard-widget/VisualizationWidget.jsx
+@@ -17,6 +17,7 @@ import QueryLink from "@/components/QueryLink";
+ import { FiltersType } from "@/components/Filters";
+ import PlainButton from "@/components/PlainButton";
+ import ExpandedWidgetDialog from "@/components/dashboards/ExpandedWidgetDialog";
++import DashboardWidgetChatDialog from "@/components/chatbot/DashboardWidgetChatDialog";
+ import EditParameterMappingsDialog from "@/components/dashboards/EditParameterMappingsDialog";
+ import VisualizationRenderer from "@/components/visualizations/VisualizationRenderer";
+ 
+@@ -144,7 +145,7 @@ VisualizationWidgetHeader.defaultProps = {
+   parameters: [],
+ };
+ 
+-function VisualizationWidgetFooter({ widget, isPublic, onRefresh, onExpand }) {
++function VisualizationWidgetFooter({ widget, isPublic, onRefresh, onExpand, onAskAi }) {
+   const widgetQueryResult = widget.getQueryResult();
+   const updatedAt = invoke(widgetQueryResult, "getUpdatedAt");
+   const [refreshClickButtonId, setRefreshClickButtonId] = useState();
+@@ -193,6 +194,15 @@ function VisualizationWidgetFooter({ widget, isPublic, onRefresh, onExpand })
+         <PlainButton className="btn btn-sm btn-default hidden-print btn-transparent btn__refresh" onClick={onExpand}>
+           <i className="zmdi zmdi-fullscreen" aria-hidden="true" />
+         </PlainButton>
++        {!isPublic && (
++          <PlainButton
++            className="btn btn-sm btn-default hidden-print btn-transparent btn__refresh"
++            onClick={onAskAi}
++            title="Ask AI about this chart"
++            data-test="WidgetAskAiButton">
++            <i className="zmdi zmdi-comment-more" aria-hidden="true" />
++          </PlainButton>
++        )}
+       </span>
+     </>
+   ) : null;
+@@ -204,6 +214,7 @@ VisualizationWidgetFooter.propTypes = {
+   isPublic: PropTypes.bool,
+   onRefresh: PropTypes.func.isRequired,
+   onExpand: PropTypes.func.isRequired,
++  onAskAi: PropTypes.func.isRequired,
+ };
+ 
+ VisualizationWidgetFooter.defaultProps = { isPublic: false };
+@@ -258,6 +269,13 @@ class VisualizationWidget extends React.Component {
+     ExpandedWidgetDialog.showModal({ widget: this.props.widget, filters: this.state.localFilters });
+   };
+ 
++  openWidgetChat = () => {
++    DashboardWidgetChatDialog.showModal({
++      widget: this.props.widget,
++      dashboard: this.props.dashboard,
++    });
++  };
++
+   editParameterMappings = () => {
+     const { widget, dashboard, onRefresh, onParameterMappingsChange } = this.props;
+     EditParameterMappingsDialog.showModal({
+@@ -352,6 +370,7 @@ class VisualizationWidget extends React.Component {
+             isPublic={isPublic}
+             onRefresh={onRefresh}
+             onExpand={this.expandWidget}
++            onAskAi={this.openWidgetChat}
+           />
+         }
+         tileProps={{ "data-refreshing": isRefreshing }}>

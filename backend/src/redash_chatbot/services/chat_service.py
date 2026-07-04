@@ -28,16 +28,31 @@ def process_chat(
     context_type = context.get("type", "query_editor")
     sid = session_id or str(uuid.uuid4())
 
-    # Step 3a stub — proves routing works; Task 4 adds real NL→SQL
-    answer = (
-        f"Received your question: \"{question.strip()}\". "
-        f"Context: {context_type}. "
-        "SQL generation and insight extraction will be enabled in Task 4."
-    )
+    if context_type == "dashboard_widget":
+        query_name = context.get("query_name") or "this widget"
+        viz = context.get("visualization_name") or context.get("visualization_type") or "chart"
+        preview = context.get("result_preview")
+        preview_note = ""
+        if preview and isinstance(preview, dict):
+            total = preview.get("total_rows", 0)
+            preview_note = f" Received {total} result row(s) for context."
+        answer = (
+            f'Looking at widget "{query_name}" ({viz}).{preview_note} '
+            f'Your question: "{question.strip()}". '
+            "Summarization and insight extraction will be enabled in Task 4."
+        )
+        route = "stub_dashboard"
+    else:
+        answer = (
+            f'Received your question: "{question.strip()}". '
+            f"Context: {context_type}. "
+            "SQL generation and insight extraction will be enabled in Task 4."
+        )
+        route = "stub"
 
     return {
         "answer": answer,
         "sql": None,
-        "route": "stub",
+        "route": route,
         "session_id": sid,
     }

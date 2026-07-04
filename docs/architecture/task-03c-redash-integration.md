@@ -247,7 +247,7 @@ Sample mounts chat **globally**. We mount **only in the query editor** with rich
 | 3a API stub | ✓ |
 | 3b React ChatPanel | ✓ |
 | **3c Query editor embed** | ✓ (this guide) |
-| 3d Dashboard widget chat | Next |
+| 3d Dashboard widget chat | ✓ (see task-03d-dashboard-widget-chat.md) |
 
 ---
 
