@@ -150,9 +150,11 @@ Redash will introspect `youtube` schema tables for the query editor. Our LLM bac
 make db-up && make db-init && make db-load
 ```
 
-Verify:
+## 8. EDA (Step 2c)
 
-```sql
-SELECT COUNT(*) FROM youtube.viewership_daily;
-SELECT report_type, COUNT(*) FROM youtube.dimension_snapshots GROUP BY 1 ORDER BY 1;
+```bash
+make eda-export    # figures + docs/architecture/eda-findings.md
+make eda           # interactive Jupyter notebook
 ```
+
+Notebook: `notebooks/task-02c-eda-youtube.ipynb`
