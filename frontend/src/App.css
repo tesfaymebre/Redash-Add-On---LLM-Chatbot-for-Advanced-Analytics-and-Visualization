@@ -1,0 +1,78 @@
+.sandbox {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  gap: 24px;
+}
+
+.sandbox__sidebar h1 {
+  font-size: 1.25rem;
+  margin: 0 0 4px;
+}
+
+.sandbox__subtitle {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0 0 20px;
+}
+
+.sandbox__meta {
+  font-size: 0.85rem;
+  margin: 0 0 20px;
+}
+
+.sandbox__meta dt {
+  font-weight: 600;
+  color: #475569;
+  margin-top: 8px;
+}
+
+.sandbox__meta dd {
+  margin: 2px 0 0;
+  word-break: break-all;
+  color: #1e293b;
+}
+
+.sandbox__hints h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin: 0 0 8px;
+}
+
+.sandbox__hints ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.sandbox__hints li {
+  margin-bottom: 4px;
+}
+
+.sandbox__note {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.sandbox__note code {
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.sandbox__chat {
+  min-height: 520px;
+}
+
+@media (max-width: 768px) {
+  .sandbox {
+    grid-template-columns: 1fr;
+  }
+}

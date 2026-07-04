@@ -14,7 +14,7 @@ POSTGRES_PORT ?= 5433
 COMPOSE  := POSTGRES_HOST_PORT=$(POSTGRES_PORT) docker compose -f infra/docker-compose.yml
 DB_URL   := postgresql://postgres:postgres@localhost:$(POSTGRES_PORT)/youtube_analytics
 
-.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-reader db-psql profile-data eda eda-export clean
+.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-reader db-psql profile-data eda eda-export frontend-install frontend-dev frontend-build redash-install redash-build clean
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -74,6 +74,36 @@ eda: ## Open EDA Jupyter notebook (Task 2c)
 
 eda-export: ## Export EDA figures + markdown summary (headless)
 	DATABASE_URL=$(DB_URL) $(PYTHON) scripts/run_eda.py
+
+frontend-install: ## Install frontend npm dependencies
+	cd frontend && npm install
+
+frontend-dev: frontend-install ## Start Vite dev server (:5173)
+	cd frontend && npm run dev
+
+frontend-build: frontend-install ## Build frontend for production
+	cd frontend && npm run build
+
+redash-install: ## Copy chatbot files into Redash clone (REDASH_PATH=...)
+	@test -n "$(REDASH_PATH)" || (echo "Usage: make redash-install REDASH_PATH=Sample/redash" && exit 1)
+	chmod +x frontend/redash-integration/install-to-redash.sh
+	./frontend/redash-integration/install-to-redash.sh "$(REDASH_PATH)"
+
+redash-build: ## Build Redash frontend (auto-detects yarn vs pnpm Redash clones)
+	@REDASH="$(or $(REDASH_PATH),Sample/redash)"; \
+	test -f "$$REDASH/package.json" || (echo "Set REDASH_PATH or use Sample/redash" && exit 1); \
+	grep -q 'ignore-engines' "$$REDASH/.yarnrc" 2>/dev/null || echo 'ignore-engines true' >> "$$REDASH/.yarnrc"; \
+	if [ -f "$$REDASH/pnpm-lock.yaml" ]; then \
+		echo "Building with pnpm (Redash v25+) → $$REDASH"; \
+		cd "$$REDASH" && \
+			PUPPETEER_SKIP_DOWNLOAD=true pnpm install --config.engine-strict=false && \
+			PUPPETEER_SKIP_DOWNLOAD=true NODE_OPTIONS=--openssl-legacy-provider pnpm build; \
+	else \
+		echo "Building with yarn (Redash v24) → $$REDASH"; \
+		cd "$$REDASH" && \
+			PUPPETEER_SKIP_DOWNLOAD=true npx --yes yarn@1.22.22 install && \
+			PUPPETEER_SKIP_DOWNLOAD=true NODE_OPTIONS=--openssl-legacy-provider npx --yes yarn@1.22.22 build; \
+	fi
 
 clean: ## Remove caches (__pycache__, pytest, ruff); keeps .venv
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
