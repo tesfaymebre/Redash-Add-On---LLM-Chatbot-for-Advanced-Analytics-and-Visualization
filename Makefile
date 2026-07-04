@@ -42,7 +42,7 @@ lint: ## Ruff check on backend
 	$(RUFF) check backend/src backend/tests
 
 run: ## Start Quart API on :8000 (reload)
-	$(HYPERCORN) redash_chatbot.app:app --reload --bind 0.0.0.0:8000 --chdir backend/src
+	$(HYPERCORN) redash_chatbot.app:app --reload --bind 0.0.0.0:8000
 
 db-up: ## Start Postgres via docker-compose
 	$(COMPOSE) up -d db
