@@ -8,10 +8,10 @@ React chat UI for the Redash add-on (Task 3).
 |------|--------|-------------|
 | 3a | Done | Quart `POST /api/chat` stub |
 | 3b | Done | Standalone `ChatPanel` + dev sandbox |
-| 3c | Done | Query editor embed — see `docs/architecture/task-03c-redash-integration.md` |
-| 3d | Next | Dashboard widget pop-up |
+| 3c | Done | Query editor embed — see `task-03c-redash-integration.md` |
+| 3d | Done | Dashboard widget chat — see `task-03d-dashboard-widget-chat.md` |
 
-## Quick start (Step 3b)
+## Quick start (Step 3b / 3d)
 
 Terminal 1 — backend:
 
@@ -25,7 +25,10 @@ Terminal 2 — frontend:
 make frontend-dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) and ask a question.
+Open [http://localhost:5173](http://localhost:5173):
+
+- **Query editor (3b)** — standalone chat panel
+- **Dashboard widget (3d)** — mock chart + “Ask AI” modal
 
 ## Project structure
 
@@ -64,6 +67,7 @@ make redash-install REDASH_PATH=Sample/redash
 cd Sample/redash
 patch -p1 < ../../frontend/redash-integration/QuerySource.patch
 patch -p1 < ../../frontend/redash-integration/QuerySource.less.patch
+patch -p1 < ../../frontend/redash-integration/VisualizationWidget.patch
 # Add window.CHATBOT_BACKEND_URL in client/app/config/index.js
 yarn build
 ```

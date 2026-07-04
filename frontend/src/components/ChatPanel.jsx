@@ -10,6 +10,7 @@ import "./ChatPanel.css";
  *   backendUrl   - Quart API base URL
  *   title        - Panel header text
  *   placeholder  - Input placeholder
+ *   welcomeMessage - Optional first assistant message
  *   onSqlGenerated - callback when backend returns SQL (Task 4)
  */
 export default function ChatPanel({
@@ -18,13 +19,17 @@ export default function ChatPanel({
   backendUrl = CHATBOT_BACKEND_URL,
   title = "Analytics Assistant",
   placeholder = "Ask about your data…",
+  welcomeMessage = null,
   onSqlGenerated = null,
 }) {
+  const defaultWelcome =
+    welcomeMessage ||
+    "Hi! Ask a question about your YouTube analytics. I'll generate SQL and insights once Task 4 is connected.";
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content:
-        "Hi! Ask a question about your YouTube analytics. I'll generate SQL and insights once Task 4 is connected.",
+      content: defaultWelcome,
     },
   ]);
   const [input, setInput] = useState("");

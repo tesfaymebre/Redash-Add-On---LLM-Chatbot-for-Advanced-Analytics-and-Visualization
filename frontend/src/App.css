@@ -71,6 +71,30 @@
   min-height: 520px;
 }
 
+.sandbox__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.sandbox__tab {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sandbox__tab--active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .sandbox {
     grid-template-columns: 1fr;
