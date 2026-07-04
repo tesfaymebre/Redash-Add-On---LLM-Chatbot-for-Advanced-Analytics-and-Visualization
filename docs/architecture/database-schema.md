@@ -129,18 +129,18 @@ WHERE report_type = 'traffic_source';
 
 ---
 
-## 6. Redash Connection (preview for Step 2d)
+## 6. Redash Connection
 
-Redash connects to PostgreSQL via **Data Source → PostgreSQL**:
+Full guide: **[redash-connection-guide.md](redash-connection-guide.md)**
+
+Quick settings (Postgres in Docker, Redash on host):
 
 | Setting | Value |
 |---------|-------|
-| Host | `localhost` (or `db` in docker-compose) |
-| Port | `5433` (host; Docker maps to 5432 in container) |
+| Host | `localhost` |
+| Port | `5433` |
 | Database | `youtube_analytics` |
-| User | `postgres` (read-only user `redash_reader` in production) |
-
-Redash will introspect `youtube` schema tables for the query editor. Our LLM backend uses the same connection string, so **one source of truth** for both dashboards and chatbot.
+| User | `postgres` / `redash_reader` (read-only) |
 
 ---
 
@@ -158,3 +158,7 @@ make eda           # interactive Jupyter notebook
 ```
 
 Notebook: `notebooks/task-02c-eda-youtube.ipynb`
+
+## 9. Redash (Step 2d)
+
+See **[redash-connection-guide.md](redash-connection-guide.md)** and starter queries in `redash-starter-queries.sql`.

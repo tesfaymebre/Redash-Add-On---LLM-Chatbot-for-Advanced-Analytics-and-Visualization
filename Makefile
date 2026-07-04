@@ -14,7 +14,7 @@ POSTGRES_PORT ?= 5433
 COMPOSE  := POSTGRES_HOST_PORT=$(POSTGRES_PORT) docker compose -f infra/docker-compose.yml
 DB_URL   := postgresql://postgres:postgres@localhost:$(POSTGRES_PORT)/youtube_analytics
 
-.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-psql profile-data eda eda-export clean
+.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-reader db-psql profile-data eda eda-export clean
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -59,6 +59,9 @@ db-init: ## Apply schema DDL (requires db-up)
 
 db-load: ## Load Data/ CSVs into Postgres (requires db-up, db-init)
 	DATABASE_URL=$(DB_URL) $(PYTHON) scripts/load_youtube_data.py --data-dir Data
+
+db-reader: ## Create read-only redash_reader role (Step 2d)
+	psql $(DB_URL) -f infra/sql/002_redash_reader.sql
 
 db-psql: ## Open psql shell in the db container
 	$(COMPOSE) exec db psql -U postgres -d youtube_analytics
