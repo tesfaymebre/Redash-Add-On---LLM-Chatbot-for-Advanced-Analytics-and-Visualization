@@ -8,8 +8,8 @@ React chat UI for the Redash add-on (Task 3).
 |------|--------|-------------|
 | 3a | Done | Quart `POST /api/chat` stub |
 | 3b | Done | Standalone `ChatPanel` + dev sandbox |
-| 3c | Next | Embed in Redash query editor |
-| 3d | Planned | Dashboard widget pop-up |
+| 3c | Done | Query editor embed — see `docs/architecture/task-03c-redash-integration.md` |
+| 3d | Next | Dashboard widget pop-up |
 
 ## Quick start (Step 3b)
 
@@ -53,4 +53,17 @@ VITE_CHATBOT_BACKEND_URL=http://localhost:8000
 cd frontend && npm run build
 ```
 
-Output: `frontend/dist/` — static assets for Redash integration (Step 3c).
+Output: `frontend/dist/` — static assets for the Vite dev sandbox.
+
+## Redash integration (Step 3c)
+
+See [docs/architecture/task-03c-redash-integration.md](../docs/architecture/task-03c-redash-integration.md).
+
+```bash
+make redash-install REDASH_PATH=Sample/redash
+cd Sample/redash
+patch -p1 < ../../frontend/redash-integration/QuerySource.patch
+patch -p1 < ../../frontend/redash-integration/QuerySource.less.patch
+# Add window.CHATBOT_BACKEND_URL in client/app/config/index.js
+yarn build
+```

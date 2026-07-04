@@ -1,0 +1,49 @@
+.query-editor-chat {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  min-width: 36px;
+  border-left: 1px solid #e8e8e8;
+  background: #fafafa;
+}
+
+.query-editor-chat--open {
+  width: 340px;
+  flex-shrink: 0;
+}
+
+.query-editor-chat--collapsed {
+  width: 36px;
+}
+
+.query-editor-chat__toggle {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  border: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 12px 6px;
+  flex-shrink: 0;
+}
+
+.query-editor-chat__toggle:hover {
+  background: #2563eb;
+}
+
+.query-editor-chat__panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.query-editor-chat__panel .chat-panel {
+  border: none;
+  border-radius: 0;
+  min-height: 100%;
+  height: 100%;
+}

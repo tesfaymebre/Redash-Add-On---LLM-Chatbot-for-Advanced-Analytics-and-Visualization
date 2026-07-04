@@ -1,0 +1,19 @@
+--- a/client/app/pages/queries/QuerySource.less	2026-07-04 16:25:07
++++ b/client/app/pages/queries/QuerySource.less	2026-07-04 16:25:10
+@@ -92,3 +92,16 @@
+     }
+   }
+ }
++
++// Task 3c: query editor + chat sidebar layout
++.editor-with-chatbot {
++  display: flex;
++  flex-direction: row;
++  flex: 1;
++  min-height: 0;
++
++  .query-editor-wrapper {
++    flex: 1;
++    min-width: 0;
++  }
++}

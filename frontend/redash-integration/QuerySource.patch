@@ -1,0 +1,36 @@
+--- a/client/app/pages/queries/QuerySource.jsx	2026-07-04 16:25:07
++++ b/client/app/pages/queries/QuerySource.jsx	2026-07-04 16:25:10
+@@ -44,6 +44,7 @@
+ import useUnsavedChangesAlert from "./hooks/useUnsavedChangesAlert";
+ 
+ import "./components/QuerySourceDropdown"; // register QuerySourceDropdown
++import QueryEditorChatSidebar from "@/components/chatbot/QueryEditorChatSidebar";
+ import "./QuerySource.less";
+ 
+ function chooseDataSourceId(dataSourceIds, availableDataSources) {
+@@ -255,7 +256,7 @@
+               className="p-absolute d-flex flex-column p-l-15 p-r-15"
+               style={{ left: 0, top: 0, right: 0, bottom: 0, overflow: "auto" }}>
+               <Resizable direction="vertical" sizeAttribute="flex-basis">
+-                <div className="row editor">
++                <div className="row editor editor-with-chatbot">
+                   <section className="query-editor-wrapper" data-test="QueryEditor">
+                     <QueryEditor
+                       ref={editorRef}
+@@ -325,6 +326,16 @@
+                       }
+                     />
+                   </section>
++
++                  {/* Task 3c: LLM chat sidebar — calls Quart backend, not Redash /api/chat */}
++                  <QueryEditorChatSidebar
++                    query={query}
++                    dataSourceId={dataSource ? dataSource.id : null}
++                    onQueryChange={(sql) => {
++                      handleQueryEditorChange(sql);
++                      editorRef.current?.editor?.setValue(sql, -1);
++                    }}
++                  />
+                 </div>
+               </Resizable>
+ 

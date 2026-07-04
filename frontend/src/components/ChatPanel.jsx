@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { sendChatMessage, CHATBOT_BACKEND_URL } from "../api/chatClient";
 import "./ChatPanel.css";
 
@@ -14,6 +14,7 @@ import "./ChatPanel.css";
  */
 export default function ChatPanel({
   contextType = "query_editor",
+  contextExtras = {},
   backendUrl = CHATBOT_BACKEND_URL,
   title = "Analytics Assistant",
   placeholder = "Ask about your data…",
@@ -53,7 +54,7 @@ export default function ChatPanel({
       try {
         const data = await sendChatMessage({
           question,
-          context: { type: contextType },
+          context: { type: contextType, ...contextExtras },
           sessionId,
           backendUrl,
         });
@@ -76,7 +77,7 @@ export default function ChatPanel({
         setLoading(false);
       }
     },
-    [input, loading, sessionId, contextType, backendUrl, onSqlGenerated],
+    [input, loading, sessionId, contextType, contextExtras, backendUrl, onSqlGenerated],
   );
 
   return (
