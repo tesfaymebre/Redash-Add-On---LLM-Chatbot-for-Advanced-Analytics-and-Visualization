@@ -1,7 +1,7 @@
 # Task 3: Redash Chat Add-on — Architecture
 
-> **Step 3a** (current): API contract + Quart backend stub  
-> **Step 3b** (next): Standalone React chat UI  
+> **Step 3a** ✓ API contract + Quart backend stub  
+> **Step 3b** ✓ Standalone React chat UI  
 > **Step 3c** (next): Embed in Redash query editor  
 > **Step 3d** (next): Dashboard widget context chat  
 
@@ -144,7 +144,7 @@ Redash fork integration (Step 3c) copies `ChatPanel.jsx` into `redash/client/app
 | Step | Deliverable | LLM? |
 |------|-------------|------|
 | **3a** ✓ | Architecture + `/api/chat` stub + tests | No |
-| 3b | React ChatPanel (standalone dev UI) | No |
+| **3b** ✓ | React ChatPanel + dev sandbox (`make frontend-dev`) | No |
 | 3c | Redash query editor integration | No |
 | 3d | Dashboard widget pop-up + context | No |
 | Task 4 | LangChain SQL agent in `chat_service` | Yes |

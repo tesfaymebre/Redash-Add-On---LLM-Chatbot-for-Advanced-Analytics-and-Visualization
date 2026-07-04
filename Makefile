@@ -14,7 +14,7 @@ POSTGRES_PORT ?= 5433
 COMPOSE  := POSTGRES_HOST_PORT=$(POSTGRES_PORT) docker compose -f infra/docker-compose.yml
 DB_URL   := postgresql://postgres:postgres@localhost:$(POSTGRES_PORT)/youtube_analytics
 
-.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-reader db-psql profile-data eda eda-export clean
+.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-reader db-psql profile-data eda eda-export frontend-install frontend-dev frontend-build clean
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -74,6 +74,15 @@ eda: ## Open EDA Jupyter notebook (Task 2c)
 
 eda-export: ## Export EDA figures + markdown summary (headless)
 	DATABASE_URL=$(DB_URL) $(PYTHON) scripts/run_eda.py
+
+frontend-install: ## Install frontend npm dependencies
+	cd frontend && npm install
+
+frontend-dev: frontend-install ## Start Vite dev server (:5173)
+	cd frontend && npm run dev
+
+frontend-build: frontend-install ## Build frontend for production
+	cd frontend && npm run build
 
 clean: ## Remove caches (__pycache__, pytest, ruff); keeps .venv
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
