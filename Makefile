@@ -14,7 +14,7 @@ POSTGRES_PORT ?= 5433
 COMPOSE  := POSTGRES_HOST_PORT=$(POSTGRES_PORT) docker compose -f infra/docker-compose.yml
 DB_URL   := postgresql://postgres:postgres@localhost:$(POSTGRES_PORT)/youtube_analytics
 
-.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-psql profile-data clean
+.PHONY: help venv install install-backend dev test lint run db-up db-down db-init db-load db-psql profile-data eda eda-export clean
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -36,7 +36,7 @@ install-backend: venv ## Install only the Quart backend (no ETL deps)
 dev: install db-up ## Full local setup: venv + deps + Postgres
 
 test: ## Run backend unit tests
-	$(PYTEST) backend/tests -v
+	$(PYTEST) backend/tests scripts/tests -v
 
 lint: ## Ruff check on backend
 	$(RUFF) check backend/src backend/tests
@@ -57,11 +57,20 @@ db-init: ## Apply schema DDL (requires db-up)
 	$(COMPOSE) exec -T db psql -U postgres -d youtube_analytics < infra/sql/001_init_schema.sql
 	@echo "Schema applied: youtube.*"
 
+db-load: ## Load Data/ CSVs into Postgres (requires db-up, db-init)
+	DATABASE_URL=$(DB_URL) $(PYTHON) scripts/load_youtube_data.py --data-dir Data
+
 db-psql: ## Open psql shell in the db container
 	$(COMPOSE) exec db psql -U postgres -d youtube_analytics
 
 profile-data: ## Profile raw CSVs under Data/
 	$(PYTHON) scripts/profile_data.py --output docs/architecture/data-profile.txt
+
+eda: ## Open EDA Jupyter notebook (Task 2c)
+	$(PYTHON) -m jupyter notebook notebooks/task-02c-eda-youtube.ipynb
+
+eda-export: ## Export EDA figures + markdown summary (headless)
+	DATABASE_URL=$(DB_URL) $(PYTHON) scripts/run_eda.py
 
 clean: ## Remove caches (__pycache__, pytest, ruff); keeps .venv
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

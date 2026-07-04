@@ -144,11 +144,17 @@ Redash will introspect `youtube` schema tables for the query editor. Our LLM bac
 
 ---
 
-## 7. Next Step (2b)
+## 7. Load data (Step 2b)
 
-Implement `scripts/load_youtube_data.py` to:
-1. Parse duration strings → seconds
-2. Skip `Total` rows in Table data
-3. Load Chart data → `dimension_metrics_daily`
-4. Load Table data → `dimension_snapshots`
-5. Seed `report_metadata` with descriptions
+```bash
+make db-up && make db-init && make db-load
+```
+
+## 8. EDA (Step 2c)
+
+```bash
+make eda-export    # figures + docs/architecture/eda-findings.md
+make eda           # interactive Jupyter notebook
+```
+
+Notebook: `notebooks/task-02c-eda-youtube.ipynb`
